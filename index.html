@@ -5,11 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="flower.css">
     <title>zzzzzz</title>
+    <style>
+      body {
+          overflow: hidden;
+          background-color: #fdf6e3;
+      }
+
+      .floating-icon {
+          position: absolute;
+          pointer-events: none;
+          filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+          animation: fadeInOut 3s linear infinite;
+      }
+
+      @keyframes fadeInOut {
+          0%, 100% { opacity: 0; }
+          20%, 80% { opacity: 1; }
+      }
+
+      .floating-icon img {
+          width: 100%;
+          height: 100%;
+          animation: moveShape 3s linear infinite;
+      }
+
+      @keyframes moveShape {
+          0% { transform: translate(0) rotate(0deg); }
+          100% { transform: translate(100px, -200px) rotate(360deg); }
+      }
+  </style>
 </head>
   
 <body class="not-loaded">
   
     <div class="night"></div>
+    <script>
+      function createFloatingIcon() {
+          let body = document.querySelector("body");
+          let iconContainer = document.createElement("div");
+          iconContainer.classList.add("floating-icon");
+  
+          // Randomly pick an image
+          let images = [
+              "heart.png", // Heart
+              "https://img.icons8.com/?size=100&id=70417&format=png&color=000000", // Star
+              "https://img.icons8.com/?size=100&id=97702&format=png&color=000000"  // Flower
+          ];
+          let randomImage = images[Math.floor(Math.random() * images.length)];
+  
+          let img = document.createElement("img");
+          img.src = randomImage;
+  
+          let x = Math.random() * window.innerWidth;
+          let y = Math.random() * window.innerHeight;
+  
+          iconContainer.style.left = x + "px";
+          iconContainer.style.top = y + "px";
+  
+          let size = Math.random() * 80 + 20; // Random size between 20px - 100px
+          iconContainer.style.width = size + "px";
+          iconContainer.style.height = size + "px";
+  
+          let transformValue = Math.random() * 360;
+          iconContainer.style.transform = `rotate(${transformValue}deg)`;
+  
+          iconContainer.appendChild(img);
+          body.appendChild(iconContainer);
+  
+          // Remove the icon after 3 seconds
+          setTimeout(() => {
+              iconContainer.remove();
+          }, 3000);
+      }
+  
+      // Generate floating icons every 500ms
+      setInterval(createFloatingIcon, 500);
+  </script>
     <div class="flowers" style="margin-bottom: 200px">
       <div class="flower flower--1">      
         <div class="intro" style="text-align:center;">Tahlia</div>
